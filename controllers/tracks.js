@@ -21,6 +21,23 @@ router.get('/', async (req, res) => {
     }
 })
 
+// READ - GET - /tracks/:trackId
+router.get('/:trackId', async (req, res) => {
+    try {
+      const foundTrack = await Track.findById(req.params.trackId);
+      if (!foundTrack) {
+        res.status(404);
+        throw new Error('Track not found.');
+      }
+      res.status(200).json(foundTrack);
+    } catch (err) {
+      if (res.statusCode === 404) {
+        res.json({ err: err.message });
+      } else {
+        res.status(500).json({ err: err.message });
+      }
+    }
+  });
 
 
 
