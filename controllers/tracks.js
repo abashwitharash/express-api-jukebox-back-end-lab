@@ -63,16 +63,16 @@ router.put('/:trackId', async (req, res) => {
   //created a delete route 
   router.delete('/:trackId', async (req, res) => {
     try {
-        const foundTrack = await Track.findById(req.params.trackId);
-        
-        if (!foundTrack) {
+        const deleteTrack = await Track.findByIdAndDelete(req.params.trackId);
+
+        if (!deleteTrack) {
             res.status(404);
             throw new Error('Track not found.');
         }
 
-        const deletedTrack = await Track.findByIdAndDelete(req.params.trackId);
+  
 
-        res.status(200).json(deletedTrack);
+        res.status(200).json(deleteTrack);
     } catch (err) {
         if (res.statusCode === 404) {
             res.json({ err: err.message });
