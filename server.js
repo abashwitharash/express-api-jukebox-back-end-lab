@@ -6,9 +6,7 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const cors = require('cors');
 
-
-// Import the controller file
-const petRouter = require('./controllers/pets.js');
+const trackRouter = require('./controllers/tracks.js');
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -18,10 +16,10 @@ mongoose.connection.on('connected', () => {
 
 app.use(express.json());
 app.use(logger('dev'));
-app.use(cors(({ origin: 'http://localhost:5173' })));
+app.use(cors());
 
-// Add the petRouter to the `/pets` route
-app.use('/pets', petRouter);
+app.use('/tracks', trackRouter);
+
 
 app.listen(3000, () => {
   console.log('The express app is ready!');
